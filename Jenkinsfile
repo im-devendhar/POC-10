@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/im-devendhar/POC-10.git'
+                git 'main''https://github.com/im-devendhar/POC-10.git'
             }
         }
         stage('Build') {
