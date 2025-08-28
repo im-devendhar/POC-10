@@ -15,8 +15,9 @@ pipeline {
 
         stage('Code Analysis') {
             steps {
-                // Make sure sonar-scanner is installed on Jenkins agent
-                sh 'sonar-scanner'
+                withSonarQubeEnv('SonarQube') {
+                    sh '/opt/sonar-scanner/bin/sonar-scanner'
+                }
             }
         }
 
