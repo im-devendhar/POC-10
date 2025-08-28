@@ -65,3 +65,25 @@ Default credentials:
 - Username: `admin`
 - Password: `admin`
 
+🌐 Application Deployment (Tomcat on Port 8000)
+Your Dockerfile uses the official Tomcat image:
+
+
+
+
+Dockerfile
+```bash
+FROM tomcat:9.0-jdk11
+COPY src/main/webapp/ /usr/local/tomcat/webapps/ROOT/
+```
+To avoid conflict with Jenkins (port 8080), run the container like this:
+
+
+
+```bash
+docker run -d --name myapp -p 8000:8080 tomcat:9.0-jdk11
+```
+Access your application at:
+```bash
+http://<your-ec2-public-ip>:8000
+```
