@@ -89,6 +89,52 @@ Access SonarQube at:
 ```
 http://<your-ec2-public-ip>:9000
 ```
+Here’s a well-framed section you can include in your **README.md** to document the SonarQube Scanner installation and setup for Jenkins:
+
+---
+
+## 🔍 SonarQube Scanner Installation for Jenkins
+
+To enable **static code analysis** in your Jenkins pipeline using **SonarQube**, follow these steps to install and configure the SonarQube Scanner CLI:
+
+### 📦 Step 1: Install SonarQube Scanner on Jenkins Server
+
+```bash
+# Download the latest SonarQube Scanner
+wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+
+# Install unzip if not already installed
+sudo apt install unzip -y
+
+# Unzip and move to /opt directory
+unzip sonar-scanner-cli-5.0.1.3006-linux.zip
+sudo mv sonar-scanner-5.0.1.3006-linux /opt/sonar-scanner
+
+# Add Sonar Scanner to system PATH
+echo 'export PATH=$PATH:/opt/sonar-scanner/bin' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### ✅ Step 2: Verify Installation
+
+```bash
+sonar-scanner --version
+```
+
+Expected output:
+```
+SonarScanner 5.0.1.3006
+Java 17.x (Eclipse Adoptium or compatible)
+```
+
+### ⚙️ Step 3: Configure in Jenkins
+
+1. Go to **Jenkins Dashboard → Manage Jenkins → Global Tool Configuration**
+2. Scroll to **SonarQube Scanner**
+3. Click **Add SonarQube Scanner**
+   - **Name**: `SonarScanner`
+   - **Path to executable**: `/opt/sonar-scanner/bin/sonar-scanner`
+
 
 Default credentials:
 
