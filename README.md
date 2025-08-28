@@ -65,7 +65,7 @@ Default credentials:
 - Username: `admin`
 - Password: `admin`
 
-🌐 Application Deployment (Tomcat on Port 8000)
+ Application Deployment (Tomcat on Port 8000)
 Your Dockerfile uses the official Tomcat image:
 
 
@@ -87,3 +87,35 @@ Access your application at:
 ```bash
 http://<your-ec2-public-ip>:8000
 ```
+
+
+
+##  Adding Docker Hub Credentials in Jenkins
+
+To securely push Docker images to Docker Hub from Jenkins, follow these steps to add your Docker Hub credentials:
+
+### Step 1: Open Jenkins Credentials Manager
+- Go to your Jenkins Dashboard.
+- Navigate to:  
+  `Manage Jenkins` → `Manage Credentials` → `(global)` → `Add Credentials`.
+
+### Step 2: Add Docker Hub Credentials
+- **Kind**: Username and password
+- **Username**: Your Docker Hub username (e.g., `devenops641`)
+- **Password**: Your Docker Hub password
+- **ID**: `docker-hub-creds` (this is used in the Jenkinsfile)
+- **Description**: (Optional) e.g., "Docker Hub login for pushing images"
+
+### Step 3: Use Credentials in Jenkinsfile
+Make sure your Jenkinsfile uses the credentials like this:
+```groovy
+withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+    sh '''
+        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+        docker push $IMAGE_NAME
+    '''
+}
+```
+
+This ensures your Docker Hub credentials are stored securely and not exposed in your code.
+
