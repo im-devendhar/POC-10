@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                docker run -d -p 8090:80 $IMAGE_NAME
+                docker run -d -p 8000:8000 $IMAGE_NAME
 
             }
         }
