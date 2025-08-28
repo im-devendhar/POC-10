@@ -1,39 +1,37 @@
 pipeline {
     agent any
-
+    environment {
+        IMAGE_NAME = 'devenops641/poc10'
+    }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/im-devendhar/POC-10.git'
+                git 'main''https://github.com/im-devendhar/POC-10.git'
             }
         }
-        stage('Build') {
+        stage('Code Analysis') {
             steps {
-                sh 'mvn clean install'
+                sh 'sonar-scanner'
             }
         }
-        stage('SonarQube Analysis') {
+        stage('Build Docker Image') {
             steps {
-                script {
-                    def scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv('SonarQubeServer') { 
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
-        stage('Docker Build & Push') {
+        stage('Push to Docker Hub') {
             steps {
-                script {
-                    docker.build("devenops641/poc10-app").push("latest")
-                }
+                sh '''
+                    echo DevDocker | docker login -u devenops641 --password-stdin
+                    docker push $IMAGE_NAME
+                '''
+            }
+        }
+        stage('Deploy') {
+            steps {
+                docker run -d -p 8090:80 $IMAGE_NAME
+
             }
         }
     }
-
-    post { 
-        always { 
-            cleanWs()
-        } 
-    }    
 }
