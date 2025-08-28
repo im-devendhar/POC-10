@@ -4,7 +4,7 @@
 
 <img width="721" height="265" alt="image" src="https://github.com/user-attachments/assets/ec0e81b2-71a7-4470-a640-6b4afbe8d974" />  
 
-## 📖 Project Description
+##  Project Description
 
 **POC-10** is a demonstration of a complete **CI/CD pipeline** for deploying a simple static **HTML web application** using DevOps tools.
 
@@ -20,7 +20,7 @@ The project showcases:
 This POC helps understand how different DevOps tools integrate to automate the software delivery lifecycle from code commit, build, testing, quality checks, image creation, pushing to registry, and finally deployment on a containerized environment.
 
 
-## 🛠️ Tools Installed
+##  Tools Installed
 
 ### 1. Git
 
