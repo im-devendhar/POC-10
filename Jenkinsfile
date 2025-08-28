@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'main''https://github.com/im-devendhar/POC-10.git'
+                git branch: 'main', url: 'https://github.com/im-devendhar/POC-10.git'
+
             }
         }
         stage('Code Analysis') {
