@@ -1,8 +1,11 @@
 pipeline {
     agent any
+
     environment {
         IMAGE_NAME = 'devenops641/poc10'
+        CONTAINER_NAME = 'poc10-container'
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -12,6 +15,7 @@ pipeline {
 
         stage('Code Analysis') {
             steps {
+                // Make sure sonar-scanner is installed on Jenkins agent
                 sh 'sonar-scanner'
             }
         }
@@ -35,7 +39,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8000:8000 $IMAGE_NAME'
+                sh '''
+                    docker stop $CONTAINER_NAME || true
+                    docker rm $CONTAINER_NAME || true
+                    docker run -d --name $CONTAINER_NAME -p 8000:80 $IMAGE_NAME
+                '''
             }
         }
     }
