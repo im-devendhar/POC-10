@@ -89,9 +89,10 @@ Access SonarQube at:
 ```
 http://<your-ec2-public-ip>:9000
 ```
-Here’s a well-framed section you can include in your **README.md** to document the SonarQube Scanner installation and setup for Jenkins:
+Default credentials:
 
----
+* Username: `admin`
+* Password: `admin`
 
 ## 🔍 SonarQube Scanner Installation for Jenkins
 
@@ -134,12 +135,6 @@ Java 17.x (Eclipse Adoptium or compatible)
 3. Click **Add SonarQube Scanner**
    - **Name**: `SonarScanner`
    - **Path to executable**: `/opt/sonar-scanner/bin/sonar-scanner`
-
-
-Default credentials:
-
-* Username: `admin`
-* Password: `admin`
 
 ---
 
